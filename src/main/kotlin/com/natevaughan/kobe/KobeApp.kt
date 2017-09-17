@@ -13,7 +13,8 @@ fun main(args: Array<String>) {
     val config = ResourceConfig(Endpoint::class.java)
     val server = JdkHttpServerFactory.createHttpServer(baseUri, config)
 
-    println("App started at ${baseUri.host}:${baseUri.port}. Press <enter> to terminate.")
+    println("App started at ${baseUri.host}:${baseUri.port}/count")
+            println("Press <enter> to terminate.")
     val reader = InputStreamReader(System.`in`)
     reader.read()
     server.stop(0)
