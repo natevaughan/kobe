@@ -1,7 +1,6 @@
-def jerseyVersion  = '2.23'
-
 buildscript {
-    ext.kotlin_version = '1.1.4-2'
+    ext.jerseyVersion  = '2.23'
+    ext.kotlinVersion  = '1.1.4-2'
 
     repositories {
         mavenCentral()
@@ -9,7 +8,7 @@ buildscript {
     }
 
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
     }
 }
 
@@ -31,8 +30,10 @@ repositories {
 
 dependencies {
     compile "org.glassfish.jersey.containers:jersey-container-jdk-http:$jerseyVersion"
+    compile "org.glassfish.jersey.media:jersey-media-json-jackson:$jerseyVersion"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlinVersion"
+
     testCompile "junit:junit:4.12"
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 }
 compileKotlin {
     kotlinOptions {

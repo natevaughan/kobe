@@ -1,5 +1,6 @@
-package com.natevaughan.kobe;
+package com.natevaughan.kobe.api;
 
+import com.natevaughan.kobe.Counter
 import javax.inject.Singleton
 import javax.ws.rs.GET
 import javax.ws.rs.Path
@@ -16,4 +17,14 @@ class Endpoint {
     fun getCount(): String {
         return "count is ${sums.incrementAndGet()}!"
     }
+
+
+    @GET
+    @Path("json")
+    @Produces(MediaType.APPLICATION_JSON)
+    fun getCountJson(): Message {
+        return Message(message = "count is ${sums.incrementAndGet()}!")
+    }
 }
+
+class Message(val message: String)
