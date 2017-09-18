@@ -1,6 +1,7 @@
 package com.natevaughan.kobe.api;
 
 import com.natevaughan.kobe.Counter
+import org.slf4j.LoggerFactory
 import javax.inject.Singleton
 import javax.ws.rs.GET
 import javax.ws.rs.Path
