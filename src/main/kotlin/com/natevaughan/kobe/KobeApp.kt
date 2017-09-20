@@ -33,7 +33,7 @@ object KobeApp {
 
 // configure Jackson
 @Provider
-class MyObjectMapperProvider: ContextResolver<ObjectMapper> {
+class JsonMapper : ContextResolver<ObjectMapper> {
 
     val result = ObjectMapper()
 
