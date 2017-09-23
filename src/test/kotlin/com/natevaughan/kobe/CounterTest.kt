@@ -1,5 +1,6 @@
 package com.natevaughan.kobe
 
+import com.natevaughan.kobe.core.Counter
 import org.junit.Assert.assertEquals
 
 import org.junit.Test

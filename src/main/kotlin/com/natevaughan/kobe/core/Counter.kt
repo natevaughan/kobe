@@ -1,4 +1,4 @@
-package com.natevaughan.kobe
+package com.natevaughan.kobe.core
 
 import org.slf4j.LoggerFactory
 
