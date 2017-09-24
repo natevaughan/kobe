@@ -7,8 +7,7 @@ import javax.ws.rs.GET
 import javax.ws.rs.Path
 import javax.ws.rs.PathParam
 import javax.ws.rs.Produces
-import javax.ws.rs.core.MediaType
-import javax.ws.rs.core.Response
+import javax.ws.rs.core.*
 import javax.ws.rs.ext.ExceptionMapper
 import javax.ws.rs.ext.Provider
 
@@ -24,8 +23,10 @@ class Resources {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    fun getCountJson(): Message {
-        log.info("GET /count")
+    fun getCountJson(@Context uriInfo: UriInfo, @Context httpHeaders: HttpHeaders): Message {
+        log.info("Request received: ${uriInfo.path} \n" +
+                "Headers: ${httpHeaders.requestHeaders}")
+
         return Message(message = "count is ${sums.incrementAndGet()}!")
     }
 
@@ -39,7 +40,7 @@ class Resources {
 
     @GET
     @Path("exception")
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     fun blowup(): Message {
         log.error("A thing went wrong!")
         throw Exception("A thing went wrong!")
@@ -51,7 +52,14 @@ class Message(val message: String)
 @Provider
 class EntityNotFoundMapper : ExceptionMapper<Throwable> {
     override fun toResponse(e: Throwable): Response {
-        return Response.status(500).
-                entity(e.message).type("text/plain").build()
+        val body: Message
+        val message = e.message
+        if (message != null) {
+            body = Message(message = message)
+        } else {
+            body = Message(message = "An error occurred: ${e.javaClass.simpleName}")
+        }
+        return Response.status(400)
+                .entity(body).type(MediaType.APPLICATION_JSON).build()
     }
 }

@@ -3,6 +3,8 @@
 package com.natevaughan.kobe
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.natevaughan.kobe.api.EntityNotFoundMapper
+import com.natevaughan.kobe.api.QueryableResources
 import com.natevaughan.kobe.api.Resources
 import org.glassfish.jersey.server.ResourceConfig
 import org.glassfish.jersey.jdkhttp.JdkHttpServerFactory
@@ -20,7 +22,8 @@ object KobeApp {
     @JvmStatic
     fun main(args: Array<String>) {
         val baseUri = UriBuilder.fromUri("http://localhost/").port(8080).build()
-        val config = ResourceConfig(Resources::class.java)
+        val config = ResourceConfig(Resources::class.java, QueryableResources::class.java)
+        config.registerClasses(EntityNotFoundMapper::class.java)
         val server = JdkHttpServerFactory.createHttpServer(baseUri, config)
 
         log.info("App started at ${baseUri.host}:${baseUri.port}. Press <enter> to terminate.")
